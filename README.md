@@ -24,10 +24,18 @@ provided with the environment variables:
 • VIEW is a comma-delimited string containing the socket addresses of all the running nodes. • SHARD_COUNT is the number of shards to divide nodes (and keys) into.
 
 Initial setup
-• Build your container image and tag it asg4img: $ docker build -t asg4img .
-• Create a subnet called asg4net with IP range 10.10.0.0/16: $ docker network create --subnet=10.10.0.0/16 asg4net
+
+• Build your container image and tag it asg4img: 
+```
+$ docker build -t asg4img.
+```
+• Create a subnet called asg4net with IP range 10.10.0.0/16: 
+```
+$ docker network create --subnet=10.10.0.0/16 asg4net
+```
 Run instances in the network
 Run each of the nodes in the subnet:
+```
 $ docker run --rm -p 8082:8090 --net=asg4net --ip=10.10.0.2 --name=alice -e=SHARD_COUNT=2
     -e=SOCKET_ADDRESS=10.10.0.2:8090
     -e=VIEW=10.10.0.2:8090,10.10.0.3:8090,10.10.0.4:8090,10.10.0.5:8090,10.10.0.6:8090,10.10.0.7:8090
@@ -52,3 +60,4 @@ $ docker run --rm -p 8087:8090 --net=asg4net --ip=10.10.0.7 --name=frank -e=SHAR
     -e=SOCKET_ADDRESS=10.10.0.7:8090
     -e=VIEW=10.10.0.2:8090,10.10.0.3:8090,10.10.0.4:8090,10.10.0.5:8090,10.10.0.6:8090,10.10.0.7:8090
     asg4img
+```
